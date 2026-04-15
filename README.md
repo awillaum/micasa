@@ -14,7 +14,7 @@
 
 # `micasa`
 
-Home maintenance, from the terminal.
+Home maintenance, in a polished desktop GUI — powered by [Fyne](https://fyne.io). The original terminal UI is still available via `micasa tui`.
 
 <div align="center">
   <img src="images/demo.webp" alt="micasa demo" width="800">
