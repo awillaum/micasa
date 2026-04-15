@@ -52,8 +52,8 @@ func newRootCmd() *cobra.Command {
 
 	root := &cobra.Command{
 		Use:           data.AppName + " [database-path]",
-		Short:         "A terminal UI for tracking everything about your home",
-		Long:          "A terminal UI for tracking everything about your home.",
+		Short:         rootShort,
+		Long:          rootLong,
 		Args:          cobra.MaximumNArgs(1),
 		SilenceErrors: true,
 		SilenceUsage:  true,
@@ -61,14 +61,15 @@ func newRootCmd() *cobra.Command {
 			if len(args) > 0 {
 				opts.dbPath = args[0]
 			}
-			return runTUI(cmd.OutOrStdout(), opts)
+			return rootRun(cmd, opts)
 		},
 	}
 
 	root.Flags().
 		BoolVar(&opts.printPath, "print-path", false, "Print the resolved database path and exit")
 
-	root.AddCommand(
+	root.AddCommand(append(
+		rootExtraSubcmds(),
 		newDemoCmd(),
 		newBackupCmd(),
 		newConfigCmd(),
@@ -78,7 +79,7 @@ func newRootCmd() *cobra.Command {
 		newQueryCmd(),
 		newGenCLIRefCmd(),
 		newDBCmd(),
-	)
+	)...)
 
 	return root
 }
